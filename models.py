@@ -33,7 +33,8 @@ def count_clicks(vk_token, short_url):
     response.raise_for_status()
     api_response = response.json()
     url_stats = api_response.get('response', {}).get('stats', [])
-    return url_stats
+    url_views = url_stats[0].get('views', 0) if url_stats else 0
+    return url_views
 
 
 
