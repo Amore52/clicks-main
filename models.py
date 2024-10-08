@@ -4,6 +4,8 @@ from urllib.parse import urlsplit
 
 
 def get_short_link(vk_token, url):
+    if is_shorten_link(url):
+        return url
     vk_api_url = 'https://api.vk.com/method/utils.getShortLink'
     payload = {
         'access_token': vk_token,
@@ -14,18 +16,17 @@ def get_short_link(vk_token, url):
     response = requests.get(vk_api_url, params=payload)
     response.raise_for_status()
     api_response = response.json()
-    return api_response['response']['short_url']
+    return api_response['response'].get('short_url')
 
 
-
-def count_clicks(vk_token, short_url):
+def count_clicks(vk_token, url):
     vk_api_url = 'https://api.vk.com/method/utils.getLinkStats'
-    parsed_split = urlsplit(short_url)
-    key_url_parsed = parsed_split.path.split('/')[-1]
+    short_link = urlsplit(get_short_link(vk_token,url))
+    key_short_link = short_link.path.split('/')[-1]
     payload = {
         'access_token': vk_token,
         'v': '5.199',
-        'key': key_url_parsed,
+        'key': key_short_link,
         'interval': 'forever',
         'extended': 0
     }
@@ -37,20 +38,14 @@ def count_clicks(vk_token, short_url):
     return url_views
 
 
-
 def is_shorten_link(url):
-    return 'vk.cc' in url
+    split_url = urlsplit(url)
+    return 'vk.cc' in split_url.netloc
 
-def get_link_info(vk_token, url):
-    if is_shorten_link(url) is True:
-        clicks = count_clicks(vk_token, url)
-        print('Количество переходов по ссылке:', clicks)
 
-    else:
-        short_url = get_short_link(vk_token, url)
-        clicks = count_clicks(vk_token, short_url)
-        print('Сокращенная ссылка:', short_url)
-        print('Количество переходов по ней:', clicks)
+
+
+
 
 
 
