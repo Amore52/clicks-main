@@ -34,13 +34,13 @@ def count_clicks(vk_token, url):
     response.raise_for_status()
     api_response = response.json()
     url_stats = api_response.get('response', {}).get('stats', [])
-    url_views = url_stats[0].get('views', 0) if url_stats else 0
-    return url_views
+    return url_stats[0].get('views', 0) if url_stats else 0
 
 
 def is_shorten_link(url):
     split_url = urlsplit(url)
-    return 'vk.cc' in split_url.netloc
+    domain_parts = split_url.netloc.split('.')
+    return any(part == 'vk' and domain_parts[-1] == 'cc' for part in domain_parts)
 
 
 
