@@ -36,7 +36,7 @@ def count_clicks(vk_token, url):
 
 
 def is_shorten_link(url):
-    return 'vk.cc' in urlsplit(url).netloc
+    return urlsplit(url).netloc == 'vk.cc'
 
 
 
