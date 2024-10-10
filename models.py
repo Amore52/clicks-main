@@ -4,8 +4,6 @@ from urllib.parse import urlsplit
 
 
 def get_short_link(vk_token, url):
-    if is_shorten_link(url):
-        return url
     vk_api_url = 'https://api.vk.com/method/utils.getShortLink'
     payload = {
         'access_token': vk_token,
