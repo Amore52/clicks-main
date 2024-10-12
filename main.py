@@ -5,7 +5,7 @@ import os
 
 def main():
     load_dotenv()
-    vk_token = os.environ['TOKEN']
+    vk_token = os.environ['VK_TOKEN']
     
     parser = argparse.ArgumentParser(description='Управление ссылками VK.')
     parser.add_argument('url', type=str, help='Ссылка для сокращения или проверки переходов')
