@@ -2,7 +2,6 @@ import requests
 from urllib.parse import urlsplit
 
 
-
 def get_short_link(vk_token, url):
     vk_api_url = 'https://api.vk.com/method/utils.getShortLink'
     payload = {
