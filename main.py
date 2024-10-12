@@ -6,7 +6,12 @@ import os
 def main():
     load_dotenv()
     vk_token = os.environ['TOKEN']
-    url = input('Введите ссылку: ')
+    
+    parser = argparse.ArgumentParser(description='Управление ссылками VK.')
+    parser.add_argument('url', type=str, help='Ссылка для сокращения или проверки переходов')
+
+    args = parser.parse_args()
+    url = args.url
 
     try:
         if is_shorten_link(url) is True:
