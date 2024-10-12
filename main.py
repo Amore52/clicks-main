@@ -24,5 +24,6 @@ def main():
     except KeyError:
         print('Неверная ссылка')
 
+
 if __name__ == "__main__":
     main()
